@@ -5,7 +5,7 @@
   register: syndesis_crd_exist
   failed_when: false
 
-  name: Create syndesis custom resource definition
+- name: Create syndesis custom resource definition
   shell: oc create -f {{ syndesis_crd_url }} --namespace {{ syndesis_namespace }}
   when: syndesis_crd_exist.rc != 0
 
