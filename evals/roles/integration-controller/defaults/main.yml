@@ -5,3 +5,4 @@ integration_crd_name: integrations.integreatly.org
 integration_crd_url: https://raw.githubusercontent.com/maleck13/integration-controller/master/deploy/crd.yaml
 integration_rbac_url: https://raw.githubusercontent.com/maleck13/integration-controller/master/deploy/rbac.yaml
 integration_deployment_url: https://raw.githubusercontent.com/maleck13/integration-controller/master/deploy/operator.yaml
+integration_deployment_name: address-space-controller

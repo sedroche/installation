@@ -12,12 +12,13 @@
 #check for this needed
 - name: Create RBAC for the managed services broker
   shell: oc create -f {{ integration_rbac_url }} -n {{ integration_namespace }}
+  # need to remove this when the checks are in
   failed_when: false
 
-# - name: Check if integration controller deployment exists
-#   shell: oc get dc {{ syndesis_dc_name }} -n {{ integration_namespace }}
-#   register: syndesis_operator_deployment_exist
-#   failed_when: false
+- name: Check if integration controller deployment exists
+  shell: oc get deploy {{ integration_deployment_name }} -n {{ integration_namespace }}
+  register: integration_controller_deployment_exist
+  failed_when: false
 
 - block:
   -
@@ -33,4 +34,4 @@
     delay: 10
     failed_when: result.stdout
     changed_when: False
-  # when: syndesis_operator_deployment_exist.rc != 0
+  when: integration_controller_deployment_exist.rc != 0
