@@ -38,7 +38,7 @@
 
 - block:
   -
-    name: Deploy syndesis
+    name: Create syndesis custom resource
     shell: oc create -f {{ syndesis_url }} --namespace {{ syndesis_namespace }}
 
   -
