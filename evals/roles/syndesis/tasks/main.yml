@@ -20,7 +20,7 @@
 
 -
   name: Deploy syndesis
-  shell: oc create -f {{ syndesis_operator_url }} --namespace {{ syndesis_namespace }}
+  shell: oc create -f {{ syndesis_url }} --namespace {{ syndesis_namespace }}
 
 -
   name: Verify syndesis deployment succeeded

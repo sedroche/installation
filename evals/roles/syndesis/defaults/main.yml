@@ -1,6 +1,6 @@
 ---
 # defaults file for syndesis
-syndesis_namespace: "enmasse"
+syndesis_namespace: "integration"
 syndesis_crd_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/install/operator/deploy/syndesis-crd.yml
 syndesis_operator_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/install/operator/deploy/syndesis-operator.yml
 syndesis_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/install/operator/deploy/syndesis.yml
