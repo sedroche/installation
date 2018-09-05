@@ -9,9 +9,15 @@
   shell: oc create -f {{ syndesis_crd_url }} --namespace {{ syndesis_namespace }}
   when: syndesis_crd_exist.rc != 0
 
+- name: Check if syndesis operator deployment exists
+  shell: oc get dc {{ syndesis_dc_name }} -n {{ syndesis_namespace }}
+  register: syndesis_operator_deployment_exist
+  failed_when: false
+
 -
   name: Deploy syndesis operator
   shell: oc create -f {{ syndesis_operator_url }} --namespace {{ syndesis_namespace }}
+  when: syndesis_operator_deployment_exist.rc != 0
 
 -
   name: Verify syndesis operator deployment succeeded

@@ -5,3 +5,4 @@ syndesis_crd_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/i
 syndesis_operator_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/install/operator/deploy/syndesis-operator.yml
 syndesis_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/install/operator/deploy/syndesis.yml
 syndesis_crd_name: syndesises.syndesis.io
+syndesis_dc_name: syndesis-operator
