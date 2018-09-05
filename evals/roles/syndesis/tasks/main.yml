@@ -7,9 +7,7 @@
 
   name: Create syndesis custom resource definition
   shell: oc create -f {{ syndesis_crd_url }} --namespace {{ syndesis_namespace }}
-  when:
-  - syndesis_crd_exist.rc != 0
-  - "NotFound" not in syndesis_crd_exist.stderr
+  when: syndesis_crd_exist.rc != 0
 
 -
   name: Deploy syndesis operator
