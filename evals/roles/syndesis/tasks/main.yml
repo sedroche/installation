@@ -50,4 +50,4 @@
     delay: 10
     failed_when: result.stdout
     changed_when: False
-  when:  '"No resources found" not in syndesis_custom_resource_exist.stdout'
+  when:  '"No resources found" in syndesis_custom_resource_exist.stdout'
