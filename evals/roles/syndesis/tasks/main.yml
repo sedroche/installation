@@ -31,16 +31,23 @@
     changed_when: False
   when: syndesis_operator_deployment_exist.rc != 0
 
--
-  name: Deploy syndesis
-  shell: oc create -f {{ syndesis_url }} --namespace {{ syndesis_namespace }}
+- name: Check if syndesis custom resource has been created
+  shell: oc get {{ syndesis_custom_resource_name }} -n {{ syndesis_namespace }}
+  register: syndesis_custom_resource_exist
+  failed_when: false
 
--
-  name: Verify syndesis deployment succeeded
-  shell: sleep 5; oc get pods --namespace {{ syndesis_namespace }}  |  grep  "deploy"
-  register: result
-  until: not result.stdout
-  retries: 50
-  delay: 10
-  failed_when: result.stdout
-  changed_when: False
+- block:
+  -
+    name: Deploy syndesis
+    shell: oc create -f {{ syndesis_url }} --namespace {{ syndesis_namespace }}
+
+  -
+    name: Verify syndesis deployment succeeded
+    shell: sleep 5; oc get pods --namespace {{ syndesis_namespace }}  |  grep  "deploy"
+    register: result
+    until: not result.stdout
+    retries: 50
+    delay: 10
+    failed_when: result.stdout
+    changed_when: False
+  when:  '"No resources found" not in syndesis_custom_resource_exist.stdout'
