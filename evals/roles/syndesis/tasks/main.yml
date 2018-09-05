@@ -1,0 +1,76 @@
+---
+# tasks file for syndesis
+# -
+#   name: Download syndesis crd
+#   get_url:
+#     url: "{{ syndesis_crd_url }}"
+#     dest: "{{ syndesis_crd_path }}"
+#     mode: 0444
+
+# -
+#   name: Download syndesis operator 
+#   get_url:
+#     url: "{{ syndesis_operator_url }}"
+#     dest: "{{ syndesis_operator_path }}"
+#     mode: 0444
+
+-
+  name: Create syndesis custom resource definition
+  shell: oc create -f {{ syndesis_crd_url }}
+  # register: install_cmd
+  # changed_when: install_cmd.rc == 0
+  # failed_when: install_cmd.rc != 0
+
+-
+  name: Deploy syndesis operator
+  shell: oc create -f {{ syndesis_operator_url }}
+
+# -
+#   name: Verify syndesis operator deployment succeeded
+#   shell: sleep 5; oc get pods --namespace {{ syndesis_namespace }}  |  grep  "deploy"
+#   register: result
+#   until: not result.stdout
+#   retries: 50
+#   delay: 10
+#   failed_when: result.stdout
+#   changed_when: False
+
+# -
+#   name: Deploy syndesis
+#   shell: oc create -f {{ syndesis_operator_url }}
+
+  # register: install_cmd
+  # changed_when: install_cmd.rc == 0
+  # failed_when: install_cmd.rc != 0
+
+# -
+#   name: Create openshift project
+#   shell: oc new-project {{ ipaas_namespace }}
+#   when: project_cmd.rc != 0
+
+# -
+#   name: Set user permissions
+#   shell: oc adm policy add-role-to-user edit {{ ipaas_username }} -n {{ ipaas_namespace }}
+
+# -
+#   name: Execute install script
+#   shell: bash {{ ipaas_script_path }}
+#   register: install_cmd
+#   changed_when: install_cmd.rc == 0
+#   failed_when: install_cmd.rc != 0
+
+# -
+#   name: Verify ipaas deployment succeeded
+#   shell: sleep 5; oc get pods --namespace {{ ipaas_namespace }}  |  grep  "deploy"
+#   register: result
+#   until: not result.stdout
+#   retries: 50
+#   delay: 10
+#   failed_when: result.stdout
+#   changed_when: False
+
+# -
+#   name: Cleanup
+#   file:
+#     state: absent
+#     path: "{{ ipaas_script_path }}"

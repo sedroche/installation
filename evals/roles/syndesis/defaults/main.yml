@@ -1,0 +1,8 @@
+---
+# defaults file for syndesis
+syndesis_namespace: "{{ eval_namespace | default('enmasse')}}"
+syndesis_crd_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/install/operator/deploy/syndesis-crd.yml
+syndesis_operator_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/install/operator/deploy/syndesis-operator.yml
+syndesis_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/install/operator/deploy/syndesis.yml
+# syndesis_crd_path: /tmp/syndesis_crd.yml
+# syndesis_operator_path: /tmp/syndesis_operator.yml
