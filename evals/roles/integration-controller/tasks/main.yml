@@ -6,14 +6,14 @@
   failed_when: false
 
 - name: Create integration custom resource definition
-  shell: oc create -f {{ integration_crd_url }} --namespace {{ integration_namespace }}
+  shell: oc create -f {{ integration_crd_url }} -n {{ integration_namespace }}
   when: integration_crd_exist.rc != 0
 
-#check for this needed
+- name: Delete RBAC
+  shell: oc delete -f {{ integration_rbac_url }} -n {{ integration_namespace }}
+
 - name: Create RBAC for the managed services broker
   shell: oc create -f {{ integration_rbac_url }} -n {{ integration_namespace }}
-  # need to remove this when the checks are in
-  failed_when: false
 
 - name: Check if integration controller deployment exists
   shell: oc get deploy {{ integration_deployment_name }} -n {{ integration_namespace }}
@@ -23,7 +23,7 @@
 - block:
   -
     name: Create integration controller deployment
-    shell: oc create -f {{ integration_deployment_url }} --namespace {{ integration_namespace }}
+    shell: oc create -f {{ integration_deployment_url }} -n {{ integration_namespace }}
 
   -
     name: Verify integration controller deployment succeeded
