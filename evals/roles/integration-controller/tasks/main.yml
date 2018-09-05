@@ -11,6 +11,7 @@
 
 - name: Delete RBAC
   shell: oc delete -f {{ integration_rbac_url }} -n {{ integration_namespace }}
+  failed_when: false
 
 - name: Create RBAC for the managed services broker
   shell: oc create -f {{ integration_rbac_url }} -n {{ integration_namespace }}
