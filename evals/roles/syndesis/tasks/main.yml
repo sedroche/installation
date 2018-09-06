@@ -1,28 +1,28 @@
 ---
 # tasks file for syndesis
 - name: Check if syndesis custom resource definition exists
-  shell: oc get crd {{ syndesis_crd_name }} -n {{ syndesis_namespace }}
+  shell: oc get customresourcedefinition {{ syndesis_crd_name }} -n {{ syndesis_namespace }}
   register: syndesis_crd_exist
   failed_when: false
 
 - name: Create syndesis custom resource definition
-  shell: oc create -f {{ syndesis_crd_url }} --namespace {{ syndesis_namespace }}
+  shell: oc create -f {{ syndesis_crd_url }} -n {{ syndesis_namespace }}
   when: syndesis_crd_exist.rc != 0
 
 - name: Check if syndesis operator deployment exists
-  shell: oc get dc {{ syndesis_dc_name }} -n {{ syndesis_namespace }}
+  shell: oc get deploymentconfig {{ syndesis_dc_name }} -n {{ syndesis_namespace }}
   register: syndesis_operator_deployment_exist
   failed_when: false
 
 - block:
   -
     name: Deploy syndesis operator
-    shell: oc create -f {{ syndesis_operator_url }} --namespace {{ syndesis_namespace }}
+    shell: oc create -f {{ syndesis_operator_url }} -n {{ syndesis_namespace }}
     register: syndesis_operator_deployed
 
   -
     name: Verify syndesis operator deployment succeeded
-    shell: sleep 5; oc get pods --namespace {{ syndesis_namespace }}  |  grep  "deploy"
+    shell: sleep 5; oc get pods -n {{ syndesis_namespace }}  |  grep  "deploy"
     register: result
     until: not result.stdout
     retries: 50
@@ -39,11 +39,11 @@
 - block:
   -
     name: Create syndesis custom resource
-    shell: oc create -f {{ syndesis_url }} --namespace {{ syndesis_namespace }}
+    shell: oc create -f {{ syndesis_url }} -n {{ syndesis_namespace }}
 
   -
     name: Verify syndesis deployment succeeded
-    shell: sleep 5; oc get pods --namespace {{ syndesis_namespace }}  |  grep  "deploy"
+    shell: sleep 5; oc get pods -n {{ syndesis_namespace }}  |  grep  "deploy"
     register: result
     until: not result.stdout
     retries: 50

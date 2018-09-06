@@ -1,7 +1,7 @@
 ---
 # tasks file for integration-controller
 - name: Check if integration custom resource definition exists
-  shell: oc get crd {{ integration_crd_name }} -n {{ integration_namespace }}
+  shell: oc get customresourcedefinition {{ integration_crd_name }} -n {{ integration_namespace }}
   register: integration_crd_exist
   failed_when: false
 
