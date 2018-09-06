@@ -1,5 +1,5 @@
 ---
-enmasse_namespace: john-integration
+enmasse_namespace: integration
 enmasse_multitenant: True
 enmasse_enable_rbac: True
 enmasse_service_catalog: True

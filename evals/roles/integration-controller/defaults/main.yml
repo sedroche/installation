@@ -1,6 +1,6 @@
 ---
 # defaults file for integration-controller
-integration_namespace: "john-integration"
+integration_namespace: "integration"
 integration_crd_name: integrations.integreatly.org
 integration_crd_url: https://raw.githubusercontent.com/maleck13/integration-controller/master/deploy/crd.yaml
 integration_rbac_url: https://raw.githubusercontent.com/maleck13/integration-controller/master/deploy/rbac.yaml
