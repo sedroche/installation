@@ -9,12 +9,13 @@
   shell: oc create -f {{ integration_crd_url }} -n {{ integration_namespace }}
   when: integration_crd_exist.rc != 0
 
-- name: Delete RBAC
-  shell: oc delete -f {{ integration_rbac_url }} -n {{ integration_namespace }}
-  failed_when: false
+- block:
+  - name: Delete RBAC if exists
+    shell: oc delete -f {{ integration_rbac_url }} -n {{ integration_namespace }}
+    failed_when: false
 
-- name: Create RBAC for the managed services broker
-  shell: oc create -f {{ integration_rbac_url }} -n {{ integration_namespace }}
+  - name: Create RBAC for the managed services broker
+    shell: oc create -f {{ integration_rbac_url }} -n {{ integration_namespace }}
 
 - name: Check if integration controller deployment exists
   shell: oc get deploy {{ integration_deployment_name }} -n {{ integration_namespace }}
