@@ -7,5 +7,4 @@
     service_catalog: "{{ enmasse_service_catalog }}"
     keycloak_admin_password: "{{ enmasse_keycloak_admin_password }}"
     authentication_services: "{{ enmasse_authentication_services }}"
-    register_api_server: true
   when: enmasse_deploy_infra | default('true') | bool
