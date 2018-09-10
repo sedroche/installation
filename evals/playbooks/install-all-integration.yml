@@ -17,8 +17,15 @@
       tags: ['bootstrap', 'remote']
 - hosts: localhost
   vars:
-    target_namespace: "full-test"
+    target_namespace: "test-again"
   tasks:
+    -
+      name: Link enmasse resources folder
+      file:
+        src: "{{ playbook_dir }}/../artifacts/enmasse/resources"
+        dest: "{{ playbook_dir }}/resources"
+        state: link
+      tags: ['enmasse']
     -
       name: Install enmasse
       include_role:
