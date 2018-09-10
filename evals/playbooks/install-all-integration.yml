@@ -1,14 +1,30 @@
 ---
+# Talk to jameel about eval_app_host
+- hosts: master
+  gather_facts: no
+  tasks:
+    - block:
+      -
+        name: Retrieve master configurations
+        slurp:
+          src: "{{ eval_openshift_master_config_path }}"
+        register: eval_master_config
+        become: yes
+      -
+        add_host:
+          name: EVAL_VARS
+          eval_app_host: "{{ (eval_master_config['content'] | b64decode | from_yaml)['routingConfig']['subdomain'] }}"
+      tags: ['bootstrap', 'remote']
 - hosts: localhost
   vars:
-    integration_namespace: "full-test"
+    target_namespace: "full-test"
   tasks:
     # -
     #   name: Install enmasse
     #   include_role:
     #     name: enmasse
     #   vars:
-    #     enmasse_namespace: "{{ integration_namespace }}"
+    #     enmasse_namespace: "{{ target_namespace }}"
     #     namespace: "{{ enmasse_namespace }}"
     #   tags: ['enmasse']
     - 
@@ -16,26 +32,27 @@
       include_role:
         name: syndesis
       vars:
-        syndesis_namespace: "{{ integration_namespace }}"
+        syndesis_namespace: "{{ target_namespace }}"
       tags: ['syndesis']
-    # -
-    # # Talk to jameel about eval_app_host
-    #   name: Set eval_app_host var
-    #   set_fact:
-    #     eval_app_host: "{{ hostvars['EVAL_VARS']['eval_app_host'] }}"
-    #   when: eval_app_host == ''
+    -
+      # Talk to jameel about eval_app_host
+      name: Set eval_app_host var
+      set_fact:
+        eval_app_host: "{{ hostvars['EVAL_VARS']['eval_app_host'] }}"
+      when: eval_app_host == ''
     -
       name: Install managed services broker
       include_role:
         name: msbroker
       vars:
-        # route_suffix: "{{ eval_app_host }}"
-        msbroker_namespace: "{{ integration_namespace }}"
+        # Talk to jameel about eval_app_host
+        route_suffix: "{{ eval_app_host }}"
+        msbroker_namespace: "{{ target_namespace }}"
       tags: ['msbroker']
     - 
       name: Install integration controller
       include_role:
         name: integration-controller
       vars:
-        integration_namespace: "{{ integration_namespace }}"
+        integration_namespace: "{{ target_namespace }}"
       tags: ['integration-controller']

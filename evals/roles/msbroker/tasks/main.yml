@@ -47,5 +47,5 @@
 
 - name: Create managed service broker template in {{ msbroker_namespace }}
   # shell: oc process -n {{ msbroker_namespace }} -f {{ msbroker_template_url }} --param=ROUTE_SUFFIX={{ route_suffix }} --param=LAUNCHER_DASHBOARD_URL={{ launcher_dashboard_url }} --param=CHE_DASHBOARD_URL={{ che_dashboard_url }} --param=IMAGE_ORG={{ msbroker_image_org }} | oc create -n {{ msbroker_namespace }} -f -
-  shell: oc process -n {{ msbroker_namespace }} -f {{ msbroker_template_url }} --param=IMAGE_ORG={{ msbroker_image_org }} | oc create -n {{ msbroker_namespace }} -f -
+  shell: oc process -n {{ msbroker_namespace }} -f {{ msbroker_template_url }} --param=ROUTE_SUFFIX={{ route_suffix }} --param=LAUNCHER_DASHBOARD_URL="http://launcher" --param=CHE_DASHBOARD_URL="http://che" --param=IMAGE_ORG={{ msbroker_image_org }} | oc create -n {{ msbroker_namespace }} -f -
   when: msbroker_exists_cmd.rc != 0
