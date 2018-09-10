@@ -1,0 +1,39 @@
+---
+- hosts: localhost
+  vars:
+    integration_namespace: "full-test"
+  tasks:
+    -
+      name: Install enmasse
+      include_role:
+        name: enmasse
+      vars:
+        enmasse_namespace: "{{ integration_namespace }}"
+      tags: ['enmasse']
+    - 
+      name: Install syndesis-operator
+      include_role:
+        name: syndesis
+      vars:
+        syndesis_namespace: "{{ integration_namespace }}"
+      tags: ['syndesis']
+    -
+      name: Set eval_app_host var
+      set_fact:
+        eval_app_host: "{{ hostvars['EVAL_VARS']['eval_app_host'] }}"
+      when: eval_app_host == ''
+    -
+      name: Install managed services broker
+      include_role:
+        name: msbroker
+      vars:
+        route_suffix: "{{ eval_app_host }}"
+        msbroker_namespace: "{{ integration_namespace }}"
+      tags: ['msbroker']
+    - 
+      name: Install integration controller
+      include_role:
+        name: integration-controller
+      vars:
+        integration_namespace: "{{ integration_namespace }}"
+      tags: ['integration-controller']

@@ -14,7 +14,7 @@
     shell: oc delete -f {{ integration_rbac_url }} -n {{ integration_namespace }}
     failed_when: false
 
-  - name: Create RBAC for the managed services broker
+  - name: Create RBAC for the integration controller
     shell: oc create -f {{ integration_rbac_url }} -n {{ integration_namespace }}
 
 - name: Check if integration controller deployment exists
