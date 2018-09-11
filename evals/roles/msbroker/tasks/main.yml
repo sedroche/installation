@@ -39,6 +39,11 @@
   register: create_rbac_result
   failed_when: (num_roles_to_create | int) != (create_rbac_result.stdout_lines | length) # Only fail when the number of roles to be created doesn't match the total number of what's actually created
 
+# need to delte this if it exists or update the check
+  # - name: Delete clusterservicebroker if exists
+  #   shell: oc delete clusterservicebroker managed-services-broker
+  #   failed_when: false
+
 # Deploy managed service broker
 - name: Check if managed service broker already exists in {{ msbroker_namespace }}
   shell: oc get deployment/msb -n {{ msbroker_namespace }}
@@ -46,6 +51,6 @@
   failed_when: false
 
 - name: Create managed service broker template in {{ msbroker_namespace }}
-  # shell: oc process -n {{ msbroker_namespace }} -f {{ msbroker_template_url }} --param=ROUTE_SUFFIX={{ route_suffix }} --param=LAUNCHER_DASHBOARD_URL={{ launcher_dashboard_url }} --param=CHE_DASHBOARD_URL={{ che_dashboard_url }} --param=IMAGE_ORG={{ msbroker_image_org }} | oc create -n {{ msbroker_namespace }} -f -
-  shell: oc process -n {{ msbroker_namespace }} -f {{ msbroker_template_url }} --param=ROUTE_SUFFIX={{ route_suffix }} --param=LAUNCHER_DASHBOARD_URL="http://launcher" --param=CHE_DASHBOARD_URL="http://che" --param=IMAGE_ORG={{ msbroker_image_org }} | oc create -n {{ msbroker_namespace }} -f -
+  # shell: oc process -n {{ msbroker_namespace }} -f {{ msbroker_template_url }} --param=NAMESPACE="{{ msbroker_namespace}}" --param=ROUTE_SUFFIX={{ route_suffix }} --param=LAUNCHER_DASHBOARD_URL={{ launcher_dashboard_url }} --param=CHE_DASHBOARD_URL={{ che_dashboard_url }} --param=IMAGE_ORG={{ msbroker_image_org }} | oc create -n {{ msbroker_namespace }} -f -
+  shell: oc process -n {{ msbroker_namespace }} -f {{ msbroker_template_url }} --param=NAMESPACE="{{ msbroker_namespace}}" --param=ROUTE_SUFFIX={{ route_suffix }} --param=LAUNCHER_DASHBOARD_URL="http://launcher" --param=CHE_DASHBOARD_URL="http://che" --param=IMAGE_ORG={{ msbroker_image_org }} | oc create -n {{ msbroker_namespace }} -f -
   when: msbroker_exists_cmd.rc != 0
