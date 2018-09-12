@@ -9,6 +9,15 @@
   shell: oc create -f {{ syndesis_crd_url }} -n {{ syndesis_namespace }}
   when: syndesis_crd_exist.rc != 0
 
+- name: Check if connection custom resource definition exists
+  shell: oc get customresourcedefinition {{ connection_crd_name }} -n {{ syndesis_namespace }}
+  register: connection_crd_exist
+  failed_when: false
+
+- name: Create connection custom resource definition
+  shell: oc create -f {{ connection_crd_url }} -n {{ syndesis_namespace }}
+  when: connection_crd_exist.rc != 0
+
 - name: Check if syndesis operator deployment exists
   shell: oc get deploymentconfig {{ syndesis_dc_name }} -n {{ syndesis_namespace }}
   register: syndesis_operator_deployment_exist

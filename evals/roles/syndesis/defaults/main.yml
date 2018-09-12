@@ -3,5 +3,7 @@
 syndesis_namespace: "syndesis"
 syndesis_crd_url: https://raw.githubusercontent.com/syndesisio/syndesis/master/install/operator/deploy/syndesis-crd.yml
 syndesis_operator_url: https://raw.githubusercontent.com/sedroche/syndesis/integration-deployment-template/install/operator/deploy/syndesis-operator.yml
+connection_crd_url: https://raw.githubusercontent.com/integr8ly/syndesis/discover-amqp-connections/install/operator/deploy/connection-crd.yml
 syndesis_crd_name: syndesises.syndesis.io
 syndesis_dc_name: syndesis-operator
+connection_crd_name: connections.syndesis.io
