@@ -39,11 +39,6 @@
   register: create_rbac_result
   failed_when: (num_roles_to_create | int) != (create_rbac_result.stdout_lines | length) # Only fail when the number of roles to be created doesn't match the total number of what's actually created
 
-# need to delte this if it exists or update the check
-  # - name: Delete clusterservicebroker if exists
-  #   shell: oc delete clusterservicebroker managed-services-broker
-  #   failed_when: false
-
 # Deploy managed service broker
 - name: Check if managed service broker already exists in {{ msbroker_namespace }}
   shell: oc get deployment/msb -n {{ msbroker_namespace }}

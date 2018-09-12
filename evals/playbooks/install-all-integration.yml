@@ -1,5 +1,4 @@
 ---
-# Talk to jameel about eval_app_host
 - hosts: master
   gather_facts: no
   tasks:
@@ -17,7 +16,7 @@
       tags: ['bootstrap', 'remote']
 - hosts: localhost
   vars:
-    target_namespace: "test-again"
+    target_namespace: "test1"
   tasks:
     -
       name: Link enmasse resources folder
@@ -35,7 +34,7 @@
         multitenant: "{{ enmasse_multitenant }}"
         enable_rbac: "{{ enmasse_enable_rbac }}"
         service_catalog: "{{ enmasse_service_catalog }}"
-        keycloak_admin_password: "{{ eval_rhsso_admin_password }}"
+        keycloak_admin_password: "{{ enmasse_keycloak_admin_password }}"
         authentication_services: "{{ enmasse_authentication_services }}"
       tags: ['enmasse']
     - 
@@ -46,7 +45,6 @@
         syndesis_namespace: "{{ target_namespace }}"
       tags: ['syndesis']
     -
-      # Talk to jameel about eval_app_host
       name: Set eval_app_host var
       set_fact:
         eval_app_host: "{{ hostvars['EVAL_VARS']['eval_app_host'] }}"
@@ -56,7 +54,6 @@
       include_role:
         name: msbroker
       vars:
-        # Talk to jameel about eval_app_host
         route_suffix: "{{ eval_app_host }}"
         msbroker_namespace: "{{ target_namespace }}"
       tags: ['msbroker']
