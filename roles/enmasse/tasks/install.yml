@@ -16,7 +16,6 @@
     monitor: true
     is_service: true
 
-
 - include_tasks: "_install_enmasse_from_artifact.yml"
 
 - name: Check if postgresql already exists
