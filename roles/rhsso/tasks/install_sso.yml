@@ -1,8 +1,9 @@
 ---
 - include_role:
     name: namespace
+    tasks_from: create
   vars:
-    namespace: "{{ sso_namespace }}"
+    name: "{{ sso_namespace }}"
     display_name: "{{ sso_namespace_display_name | default('Red Hat Single Sign-On')}}"
 
 - name: Add labels to namespace
