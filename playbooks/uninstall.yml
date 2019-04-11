@@ -20,6 +20,13 @@
       when: backup_restore_install | default(false) | bool
 
     -
+      name: Uninstall Integreatly Operator
+      include_role:
+        name: integreatly_operator
+        tasks_from: uninstall
+      tags: ['integreatly_operator']
+      when: integreatly_operator | default(true) | bool
+    -
       name: Uninstall apicurito
       include_role:
         name: apicurito
@@ -140,7 +147,6 @@
       name: Reboot template broker
       include_role:
         name: reboot_template_broker
-
 
 - hosts: master
   tasks:
