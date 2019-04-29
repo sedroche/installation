@@ -106,3 +106,10 @@
   with_items:
   - api
   - controllers
+
+- name: "Wait for API to come back up"
+  shell: "oc get namespaces"
+  register: "namespaces_list"
+  until: namespaces_list.stdout != ""
+  retries: 60
+  delay: 5
