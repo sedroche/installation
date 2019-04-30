@@ -6,4 +6,4 @@ integreatly_operator_crds:
   - "{{ integreatly_operator_deploy }}/crds/installation.crd.yaml"
 integreatly_operator_configmap: integreatly-config
 integreatly_cr_name: integreatly-installation
-integreatly_cr_spec_type: {{ integreatly_installation_type }}
+integreatly_cr_spec_type: "{{ integreatly_installation_type }}"
