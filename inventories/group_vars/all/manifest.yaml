@@ -105,7 +105,7 @@ msbroker_release_tag: 'v0.0.5'
 msbroker_template: 'https://raw.githubusercontent.com/integr8ly/managed-service-broker/{{ msbroker_release_tag }}/templates/broker.template.yaml'
 
 #AMQ Streams
-amq_streams: true
+amq_streams: false
 amq_streams_repo_url: https://github.com/jboss-container-images/amqstreams-1-openshift-image
 amq_version: 1.1.0
 
