@@ -9,5 +9,14 @@
     launcher_sso_route: "https://{{launcher_sso_host_cmd.stdout}}"
   when: launcher
 
+# install_sso.yml line 44
+- name: Retrieve cluster rhsso host
+  shell: "oc get route/sso -o jsonpath='{.spec.host}' -n {{ eval_rhsso_namespace }}"
+  register: eval_sso_host_cmd
+
+- name: Set rhsso host var
+  set_fact:
+    eval_rhsso_host: "{{ eval_sso_host_cmd.stdout }}"
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
