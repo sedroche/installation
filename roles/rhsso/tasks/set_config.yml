@@ -1,0 +1,12 @@
+---
+- name: Retrieve launcher sso hostvars
+  shell: "oc get route/{{launcher_sso_prefix}} -o jsonpath='{.spec.host}' -n {{ launcher_namespace }}"
+  register: launcher_sso_host_cmd
+  when: launcher
+
+- set_fact:
+    launcher_sso_route: "https://{{launcher_sso_host_cmd.stdout}}"
+  when: launcher
+
+#- name: Create config secret
+#  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
