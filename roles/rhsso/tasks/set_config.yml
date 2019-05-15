@@ -18,5 +18,26 @@
   set_fact:
     eval_rhsso_host: "{{ eval_sso_host_cmd.stdout }}"
 
+# install_sso.yml line 25
+# Setting Openshift SSO env vars e.g.
+# - eval_rhsso_admin_username
+# - eval_rhsso_admin_password
+# - eval_rhsso_service_username
+# - eval_rhsso_service_password
+- name: Retrieve rhsso env vars
+  shell: "oc get dc/sso \
+          -o jsonpath='{.spec.template.spec.containers[0].env[?(@.name==\"{{ item }}\")].value}' \
+          -n {{ eval_rhsso_namespace }}"
+  with_items:
+    - 'SSO_SERVICE_USERNAME'
+    - 'SSO_SERVICE_PASSWORD'
+    - 'SSO_ADMIN_USERNAME'
+    - 'SSO_ADMIN_PASSWORD'
+  register: _eval_rhsso_dc_cmd
+
+- name: Set rhsso playbook vars
+  set_fact: "eval_rh{{ item.item | lower }}={{ item.stdout }}"
+  with_items: "{{ _eval_rhsso_dc_cmd.results }}"
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
