@@ -104,7 +104,7 @@
 
 - name: Update authentication flow
   uri:
-    url: https://{{ launcher_sso_route }}/auth/admin/realms/{{ launcher_sso_realm }}/authentication/executions/{{ flow_id }}/config
+    url: "https://{{ launcher_sso_route }}/auth/admin/realms/{{ launcher_sso_realm }}/authentication/executions/{{ flow_id }}/config"
     method: POST
     body: '{"config":{"defaultProvider":"keycloak-oidc"},"alias":"OpenShift Keycloak Users"}'
     body_format: json
