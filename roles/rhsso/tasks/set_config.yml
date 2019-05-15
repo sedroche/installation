@@ -52,5 +52,9 @@
     launcher_sso_password: "{{ launcher_admin_password_cmd.stdout }}"
     launcher_sso_admin_password: "{{ launcher_admin_password_cmd.stdout }}"
 
+# rhsso/defaults/main.yml line 39
+- set_fact:
+    rhsso_cluster_admin_email: admin@example.com
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
