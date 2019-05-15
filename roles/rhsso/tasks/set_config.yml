@@ -1,6 +1,7 @@
 ---
+# install.yml line 80
 - name: Retrieve launcher sso hostvars
-  shell: "oc get route/{{launcher_sso_prefix}} -o jsonpath='{.spec.host}' -n {{ launcher_namespace }}"
+  shell: "oc get route/launcher-sso -o jsonpath='{.spec.host}' -n launcher"
   register: launcher_sso_host_cmd
   when: launcher
 
