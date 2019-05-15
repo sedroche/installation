@@ -45,7 +45,7 @@
 - name: Retrieve launcher SSO Admin Password
   shell: "oc get dc/launcher-sso \
         -o jsonpath='{.spec.template.spec.containers[0].env[?(@.name==\"SSO_ADMIN_PASSWORD\")].value}' \
-        -n {{ launcher_namespace }}"
+        -n launcher"
   register: launcher_admin_password_cmd
 
 - set_fact:
