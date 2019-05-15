@@ -39,5 +39,18 @@
   set_fact: "eval_rh{{ item.item | lower }}={{ item.stdout }}"
   with_items: "{{ _eval_rhsso_dc_cmd.results }}"
 
+
+# launcher/tasks/provision_sso.yml line line 56
+# This errored on a re run
+- name: Retrieve launcher SSO Admin Password
+  shell: "oc get dc/launcher-sso \
+        -o jsonpath='{.spec.template.spec.containers[0].env[?(@.name==\"SSO_ADMIN_PASSWORD\")].value}' \
+        -n {{ launcher_namespace }}"
+  register: launcher_admin_password_cmd
+
+- set_fact:
+    launcher_sso_password: "{{ launcher_admin_password_cmd.stdout }}"
+    launcher_sso_admin_password: "{{ launcher_admin_password_cmd.stdout }}"
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
