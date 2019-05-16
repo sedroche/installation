@@ -13,5 +13,6 @@
       vars:
         rhsso_openshift_master_config_path: "{{ eval_openshift_master_config_path }}"
         rhsso_namespace: "{{ eval_rhsso_namespace }}"
+        rhsso_client_id: "{{ rhsso_client_id }}"
       tags: ['rhsso', 'remote']
       when: (run_master_tasks | default(true) | bool) and webapp
