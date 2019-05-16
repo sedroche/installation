@@ -80,5 +80,13 @@
 - set_fact:
     rhsso_master_restart_shim_path: /usr/local/bin/master-restart
 
+# rhsso/defaults/main.yml line 24
+- set_fact:
+    rhsso_operator_resource_items:
+      - "{{ rhsso_operator_resources }}/rbac.yaml"
+      - "{{ rhsso_operator_resources }}/crds/Keycloak_crd.yaml"
+      - "{{ rhsso_operator_resources }}/crds/KeycloakRealm_crd.yaml"
+      - "{{ rhsso_operator_resources }}/operator.yaml"
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
