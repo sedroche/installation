@@ -60,5 +60,9 @@
 - set_fact:
     rhsso_realm: openshift
 
+# rhsso/defaults/main.yml line 9
+- set_fact:
+    rhsso_client_id: openshift-client
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
