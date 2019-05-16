@@ -72,5 +72,9 @@
 - set_fact:
     rhsso_hide_default_identity_providers: true
 
+# rhsso/defaults/main.yml line 17
+- set_fact:
+    rhsso_identity_provider_ca_cert_path: ca.crt
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
