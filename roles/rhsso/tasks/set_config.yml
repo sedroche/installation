@@ -101,5 +101,9 @@
 - set_fact:
     rhsso_cluster_admin_password: Password1
 
+# rhsso/defaults/main.yml line 40
+- set_fact:
+    rhsso_cluster_admin_username: admin
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
