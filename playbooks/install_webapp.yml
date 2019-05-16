@@ -19,5 +19,6 @@
         rhsso_hide_default_identity_providers: true
         rhsso_identity_provider_ca_cert_path: ca.crt
         rhsso_realm: openshift
+        rhsso_master_restart_shim_path: /usr/local/bin/master-restart
       tags: ['rhsso', 'remote']
       when: (run_master_tasks | default(true) | bool) and webapp
