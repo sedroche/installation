@@ -18,6 +18,6 @@
         original_identityprovider_config_path: /etc/origin/master/idp-config.integreatly-original.yaml
         rhsso_hide_default_identity_providers: true
         rhsso_identity_provider_ca_cert_path: ca.crt
-        rhsso_realm: "{{rhsso_realm}}"
+        rhsso_realm: openshift
       tags: ['rhsso', 'remote']
       when: (run_master_tasks | default(true) | bool) and webapp
