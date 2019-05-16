@@ -61,11 +61,12 @@
     rhsso_realm: openshift
 
 # rhsso/defaults/main.yml line 9
-- debug:
-    msg: "****setting rhsso client*****"
-
 - set_fact:
     rhsso_client_id: openshift-client
+
+# rhsso/defaults/main.yml line 45
+- set_fact:
+    original_identityprovider_config_path: /etc/origin/master/idp-config.integreatly-original.yaml
 
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
