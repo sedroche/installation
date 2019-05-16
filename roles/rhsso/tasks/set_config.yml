@@ -93,5 +93,9 @@
     rhsso_plugins:
       keycloak-metrics-spi
 
+# rhsso/defaults/main.yml line 5
+- set_fact:
+    rhsso_admin_realm: master
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
