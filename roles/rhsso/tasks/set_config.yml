@@ -88,5 +88,10 @@
       - "{{ rhsso_operator_resources }}/crds/KeycloakRealm_crd.yaml"
       - "{{ rhsso_operator_resources }}/operator.yaml"
 
+# rhsso/defaults/main.yml line 43
+- set_fact:
+    rhsso_plugins:
+      keycloak-metrics-spi
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
