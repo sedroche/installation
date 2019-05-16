@@ -16,5 +16,6 @@
 #        rhsso_client_id: "{{ rhsso_client_id }}"
         rhsso_client_id: "openshift-client"
         original_identityprovider_config_path: /etc/origin/master/idp-config.integreatly-original.yaml
+        rhsso_hide_default_identity_providers: true
       tags: ['rhsso', 'remote']
       when: (run_master_tasks | default(true) | bool) and webapp

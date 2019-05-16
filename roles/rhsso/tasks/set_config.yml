@@ -68,5 +68,9 @@
 - set_fact:
     original_identityprovider_config_path: /etc/origin/master/idp-config.integreatly-original.yaml
 
+# rhsso/defaults/main.yml line 14
+- set_fact:
+    rhsso_hide_default_identity_providers: true
+
 #- name: Create config secret
 #  shell: oc create secret generic integreatly-operator-product-config --from-file=/tmp/generated_manifest --type=application/json -n {{webapp_namespace}}
