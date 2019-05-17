@@ -6,7 +6,7 @@
   when: launcher
 
 - set_fact:
-    launcher_sso_route: "https://{{launcher_sso_host_cmd.stdout}}"
+    launcher_sso_route: "{{launcher_sso_host_cmd.stdout}}"
   when: launcher
 
 # install_sso.yml line 44
