@@ -1,58 +1,58 @@
-#---
-#rhsso_namespace: "{{ eval_rhsso_namespace | default('sso') }}"
-#
-#rhsso_admin_username: admin
-#rhsso_admin_realm: master
-#rhsso_realm: openshift
-#rhsso_realm_event_listeners:
-#  - metrics-listener
-#rhsso_client_id: openshift-client
-#rhsso_validate_certs: "{{ eval_sso_validate_certs | default('true') }}"
-#rhsso_redirect_uri: ""
-#
-#rhsso_openshift_master_config_path: /etc/origin/master/master-config.yaml
-#rhsso_hide_default_identity_providers: true
-#
-#rhsso_identity_provider_self_signed_certs: "{{ eval_self_signed_certs | default(true) }}"
-#rhsso_identity_provider_ca_cert_path: ca.crt
-#rhsso_master_restart_shim_path: /usr/local/bin/master-restart
-#
-#rhsso_openshift_webconsole_namespace: openshift-web-console
-#rhsso_openshift_webconsole_configmap: webconsole-config
-#rhsso_openshift_update_webconsole_configmap: false
-#
-#rhsso_operator_resource_items:
-#  - "{{ rhsso_operator_resources }}/rbac.yaml"
-#  - "{{ rhsso_operator_resources }}/crds/Keycloak_crd.yaml"
-#  - "{{ rhsso_operator_resources }}/crds/KeycloakRealm_crd.yaml"
-#  - "{{ rhsso_operator_resources }}/operator.yaml"
-#
-#rhsso_seed_users_email_format: evals%02d@example.com
-#rhsso_seed_users_name_format: evals%02d
-#rhsso_seed_users_count: "{{ eval_seed_users_count }}"
-#rhsso_seed_users_password: Password1
-#
-#rhsso_evals_admin_email: customer-admin@example.com
-#rhsso_evals_admin_username: customer-admin
-#rhsso_evals_admin_password: Password1
-#
-#rhsso_cluster_admin_email: admin@example.com
-#rhsso_cluster_admin_username: admin
-#rhsso_cluster_admin_password: Password1
-#
-#rhsso_plugins:
-#  - keycloak-metrics-spi
-#original_identityprovider_config_path: /etc/origin/master/idp-config.integreatly-original.yaml
-#
-#rhsso_provision_immediately: false
-#
-#rhsso_backups:
-#  - name: "daily-at-midnight"
-#    schedule: "{{ backup_schedule }}"
-#    encryption_key_secret_name: ""
-#    aws_credentials_secret_name: "{{ aws_s3_backup_secret_name }}"
-#    aws_credentials_secret_namespace: "{{ backup_namespace }}"
-#    image: "quay.io/integreatly/backup-container"
-#    image_tag: "{{ backup_version }}"
-#    labels:
-#      monitoring-key: middleware
+---
+rhsso_namespace: "{{ eval_rhsso_namespace | default('sso') }}"
+
+rhsso_admin_username: admin
+rhsso_admin_realm: master
+rhsso_realm: openshift
+rhsso_realm_event_listeners:
+  - metrics-listener
+rhsso_client_id: openshift-client
+rhsso_validate_certs: "{{ eval_sso_validate_certs | default('true') }}"
+rhsso_redirect_uri: ""
+
+rhsso_openshift_master_config_path: /etc/origin/master/master-config.yaml
+rhsso_hide_default_identity_providers: true
+
+rhsso_identity_provider_self_signed_certs: "{{ eval_self_signed_certs | default(true) }}"
+rhsso_identity_provider_ca_cert_path: ca.crt
+rhsso_master_restart_shim_path: /usr/local/bin/master-restart
+
+rhsso_openshift_webconsole_namespace: openshift-web-console
+rhsso_openshift_webconsole_configmap: webconsole-config
+rhsso_openshift_update_webconsole_configmap: false
+
+rhsso_operator_resource_items:
+  - "{{ rhsso_operator_resources }}/rbac.yaml"
+  - "{{ rhsso_operator_resources }}/crds/Keycloak_crd.yaml"
+  - "{{ rhsso_operator_resources }}/crds/KeycloakRealm_crd.yaml"
+  - "{{ rhsso_operator_resources }}/operator.yaml"
+
+rhsso_seed_users_email_format: evals%02d@example.com
+rhsso_seed_users_name_format: evals%02d
+rhsso_seed_users_count: "{{ eval_seed_users_count }}"
+rhsso_seed_users_password: Password1
+
+rhsso_evals_admin_email: customer-admin@example.com
+rhsso_evals_admin_username: customer-admin
+rhsso_evals_admin_password: Password1
+
+rhsso_cluster_admin_email: admin@example.com
+rhsso_cluster_admin_username: admin
+rhsso_cluster_admin_password: Password1
+
+rhsso_plugins:
+  - keycloak-metrics-spi
+original_identityprovider_config_path: /etc/origin/master/idp-config.integreatly-original.yaml
+
+rhsso_provision_immediately: false
+
+rhsso_backups:
+  - name: "daily-at-midnight"
+    schedule: "{{ backup_schedule }}"
+    encryption_key_secret_name: ""
+    aws_credentials_secret_name: "{{ aws_s3_backup_secret_name }}"
+    aws_credentials_secret_namespace: "{{ backup_namespace }}"
+    image: "quay.io/integreatly/backup-container"
+    image_tag: "{{ backup_version }}"
+    labels:
+      monitoring-key: middleware

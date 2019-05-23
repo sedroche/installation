@@ -2,8 +2,8 @@
 - hosts: localhost
   gather_facts: true
   tasks:
-    - name: Include vars from rhsso
-      include_vars: "../roles/rhsso/defaults/main.yml"
+#    - name: Include vars from rhsso
+#      include_vars: "../roles/rhsso/defaults/main.yml"
     -
       name: Install user rhsso
       include_role:

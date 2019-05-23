@@ -11,8 +11,8 @@
       tags: ['nexus']
       when: nexus
 
-    - name: Expose vars
-      include_vars: "../roles/rhsso/defaults/main.yml"
+#    - name: Expose vars
+#      include_vars: "../roles/rhsso/defaults/main.yml"
     -
       name: Set eval_app_host var
       set_fact:
