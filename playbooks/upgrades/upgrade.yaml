@@ -17,6 +17,11 @@
         from_version: "1.3.0"
 
     - include_role:
+        name: openshift
+        tasks_from: set_master_vars
+      when: run_master_tasks | default(true) | bool
+
+    - include_role:
         name: rhsso
         tasks_from: upgrade
       vars:
