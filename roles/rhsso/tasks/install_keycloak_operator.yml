@@ -1,6 +1,4 @@
 ---
-# TODO: This needs to be removed or replaced with install_keycloak_operator where necessary.
-# Leaving it here for now as user sso uses this and it outside the scope of rhsso
 - include_role:
     name: namespace
     tasks_from: create
@@ -33,13 +31,3 @@
   with_items: "{{ rhsso_operator_resource_items }}"
   register: rhsso_operator_resources_result
   failed_when: rhsso_operator_resources_result.stderr != '' and 'AlreadyExists' not in rhsso_operator_resources_result.stderr
-
-- name: "Create keycloak resource template"
-  template:
-    src: "keycloak.json.j2"
-    dest: "/tmp/keycloak.json"
-
-- name: "Create keycloak resource"
-  shell: oc create -f /tmp/keycloak.json -n {{ sso_namespace }}
-  register: rhsso_keycloak
-  failed_when: rhsso_keycloak.stderr != '' and 'AlreadyExists' not in rhsso_keycloak.stderr

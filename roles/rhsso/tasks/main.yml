@@ -1,19 +1,21 @@
 ---
-- name: Provision RH-SSO
-  include_tasks: install_sso.yml
+- name: Provision RH-SSO Operator
+  include_tasks: install_keycloak_operator.yml
   vars:
     sso_namespace: "{{ rhsso_namespace }}"
     
 - name: "Generate secret for rhsso client"
   set_fact:
-    rhsso_client_secret: "{{ (ansible_date_time.epoch + rhsso_namespace) | hash('sha512') }}"
+#    rhsso_client_secret: "{{ (ansible_date_time.epoch + rhsso_namespace) | hash('sha512') }}"
+    rhsso_client_secret: "jslkjdkjshfsdjhfkjdshf"
 
 - name: "include threescale vars"
   include_vars: ../../3scale/defaults/main.yml
 
 - name: "Generate secret for 3scale client"
   set_fact:
-    threescale_client_secret: "{{ (ansible_date_time.epoch + threescale_namespace) | hash('sha512') }}"
+#    threescale_client_secret: "{{ (ansible_date_time.epoch + threescale_namespace) | hash('sha512') }}"
+    threescale_client_secret: "vcbxvbcxnbvcxnvbcxn"
 
 - name: "include launcher vars"
   include_vars: ../../launcher/defaults/main.yml
@@ -33,7 +35,8 @@
 
 - name: "Generate secret for launcher client"
   set_fact:
-    launcher_client_secret: "{{ (ansible_date_time.epoch + launcher_namespace) | hash('sha512') }}"
+#    launcher_client_secret: "{{ (ansible_date_time.epoch + launcher_namespace) | hash('sha512') }}"
+    launcher_client_secret: "kjjlkkhjklhkjhlk"
   when: launcher
 
 - set_fact:
@@ -48,33 +51,34 @@
     threescale_route_suffix: "{{ apps_redirect_uri }}"
   when: not enable_threescale_wildcard_route
 
-- name: "Create keycloak realm resource template"
-  template:
-    src: "keycloak-realm.json.j2"
-    dest: "/tmp/keycloak-realm.json"
+#- name: "Create keycloak realm resource template"
+#  template:
+#    src: "keycloak-realm.json.j2"
+#    dest: "/tmp/keycloak-realm.json"
+#
+#- name: Seed evaluation users
+#  include_tasks: _inject_user.yml
+#  vars:
+#    template: "/tmp/keycloak-realm.json"
+#    email: "{{ rhsso_seed_users_email_format|format(item|int) }}"
+#    username: "{{ rhsso_seed_users_name_format|format(item|int)}}"
+#    password: "{{ rhsso_seed_users_password }}"
+#  with_sequence: count={{ rhsso_seed_users_count }}
+#
+#- name: "Create keycloak realm resource"
+#  shell: oc create -f /tmp/keycloak-realm.json -n {{ rhsso_namespace }}
+#  register: rhsso_kcr
+#  failed_when: rhsso_kcr.stderr != '' and 'AlreadyExists' not in rhsso_kcr.stderr
+#
+#- name: "Verify rhsso realm is provisioned"
+#  shell: sleep 5; oc get keycloakrealm {{ rhsso_realm }} -o template --template \{\{.status.phase\}\}  -n {{ rhsso_namespace }}  |  grep  'reconcile'
+#  register: result
+#  until: result.stdout
+#  retries: 50
+#  delay: 10
+#  failed_when: not result.stdout
+#  changed_when: False
 
-- name: Seed evaluation users
-  include_tasks: _inject_user.yml
-  vars:
-    template: "/tmp/keycloak-realm.json"
-    email: "{{ rhsso_seed_users_email_format|format(item|int) }}"
-    username: "{{ rhsso_seed_users_name_format|format(item|int)}}"
-    password: "{{ rhsso_seed_users_password }}"
-  with_sequence: count={{ rhsso_seed_users_count }}
-
-- name: "Create keycloak realm resource"
-  shell: oc create -f /tmp/keycloak-realm.json -n {{ rhsso_namespace }}
-  register: rhsso_kcr
-  failed_when: rhsso_kcr.stderr != '' and 'AlreadyExists' not in rhsso_kcr.stderr
-
-- name: "Verify rhsso realm is provisioned"
-  shell: sleep 5; oc get keycloakrealm {{ rhsso_realm }} -o template --template \{\{.status.phase\}\}  -n {{ rhsso_namespace }}  |  grep  'reconcile'
-  register: result
-  until: result.stdout
-  retries: 50
-  delay: 10
-  failed_when: not result.stdout
-  changed_when: False
-
-- name: configure logout
-  import_tasks: logout.yml
+# Repeated in install_sso playbook
+#- name: configure logout
+#  import_tasks: logout.yml
