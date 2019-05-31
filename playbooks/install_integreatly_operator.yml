@@ -4,3 +4,44 @@
   roles:
     - role: integreatly_operator
       when: integreatly_operator | default(true) | bool
+  # Moved from install_sso playbook as it needs to be run after keycloak is created
+  # TODO: This may need to be changed to be read from the config map
+  tasks:
+    -
+      name: Gather rhsso data
+      block:
+        -
+          # Setting Openshift SSO env vars e.g.
+          # - eval_rhsso_admin_username
+          # - eval_rhsso_admin_password
+          name: Retrieve rhsso env vars
+          shell: "oc get dc/sso \
+                  -o jsonpath='{.spec.template.spec.containers[0].env[?(@.name==\"{{ item }}\")].value}' \
+                  -n {{ eval_rhsso_namespace }}"
+          with_items:
+            - 'SSO_SERVICE_USERNAME'
+            - 'SSO_SERVICE_PASSWORD'
+            - 'SSO_ADMIN_USERNAME'
+            - 'SSO_ADMIN_PASSWORD'
+          register: _eval_rhsso_dc_cmd
+        -
+          name: Set rhsso playbook vars
+          set_fact: "eval_rh{{ item.item | lower }}={{ item.stdout }}"
+          with_items: "{{ _eval_rhsso_dc_cmd.results }}"
+        -
+          name: Retrieve cluster rhsso host
+          shell: "oc get route/sso -o jsonpath='{.spec.host}' -n {{ eval_rhsso_namespace }}"
+          register: eval_sso_host_cmd
+        -
+          name: Set rhsso host var
+          set_fact:
+            eval_rhsso_host: "{{ eval_sso_host_cmd.stdout }}"
+      tags: ['bootstrap']
+    -
+      name: Configure SSO Logout URL
+      include_role:
+        name: rhsso
+        tasks_from: logout
+      vars:
+        rhsso_redirect_uri: "{{ hostvars['EVAL_VARS']['openshift_master_url'] }}"
+      tags: ['rhsso']
