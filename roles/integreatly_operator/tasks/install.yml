@@ -19,3 +19,5 @@
 
 - name: Create Installation custom resource in {{ integreatly_operator_ns_name }}
   shell: oc apply -f /tmp/integreatly-customresource.yml -n {{ integreatly_operator_ns_name }}
+
+# TODO: Wait for deploy to be Complete

@@ -6,7 +6,7 @@ eval_openshift_master_config_path: /etc/origin/master/master-config.yaml
 eval_self_signed_certs: true
 eval_sso_validate_certs: false
 eval_launcher_sso_realm: launcher_realm
-integreatly_installation_type: managed
+integreatly_installation_type: workshop
 
 eval_apicurito_namespace: "{{ns_prefix | default('')}}apicurito"
 eval_che_namespace: "{{ns_prefix | default('')}}codeready"
